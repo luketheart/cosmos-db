@@ -3,6 +3,7 @@ package db
 import (
 	"fmt"
 	"sync"
+	"time"
 )
 
 // PrefixDB wraps a namespace of another database as a logical database.
@@ -109,7 +110,12 @@ func (pdb *PrefixDB) Iterator(start, end []byte) (Iterator, error) {
 	} else {
 		pend = append(cp(pdb.prefix), end...)
 	}
+
+	t := time.Now()
 	itr, err := pdb.db.Iterator(pstart, pend)
+	d1 := float64(time.Since(t).Microseconds()) / 1000
+	fmt.Printf("________________________________________pdb.db.Iterator, pstart: %s, pend: %s, time: %.3f\n",
+		string(pstart), string(pend), d1)
 	if err != nil {
 		return nil, err
 	}

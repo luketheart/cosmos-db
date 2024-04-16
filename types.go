@@ -1,6 +1,8 @@
 package db
 
-import "errors"
+import (
+	"errors"
+)
 
 const DBFileSuffix = ".db"
 
@@ -130,6 +132,7 @@ type Batch interface {
 //	if err := itr.Error(); err != nil {
 //	  ...
 //	}
+
 type Iterator interface {
 	// Domain returns the start (inclusive) and end (exclusive) limits of the iterator.
 	// CONTRACT: start, end readonly []byte
